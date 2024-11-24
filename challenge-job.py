@@ -5,9 +5,9 @@ import redis
 import json
 
 
-connection=psycopg2.connect(database="challenge-db",user="postgres",password="postgres",host="localhost",port=5432)
+connection=psycopg2.connect(database="challenge-db",user="postgres",password="postgres",host="127.0.0.1",port=5432)
 cursor=connection.cursor()
-rc=redis.Redis("localhost")
+rc=redis.Redis("host.docker.internal")
 
 def task():
     sql="select * from orders  where order_id> %s"
@@ -53,7 +53,7 @@ def task():
 
     
 
-schedule.every().second.do(task)
+schedule.every().minute.do(task)
 
 while True:
     schedule.run_pending()

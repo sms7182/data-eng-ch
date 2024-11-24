@@ -21,6 +21,15 @@ services:
      - "6379:6379"
    networks: 
      - default
+  
+  challenge:
+    build: .
+    networks:
+     - default
+    depends_on:
+      - redis
+      - postgres
+
  
 networks:
 
